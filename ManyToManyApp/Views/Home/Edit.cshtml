@@ -1,0 +1,34 @@
+﻿@model ManyToManyApp.Models.Student
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="editor-label"><b>Name</b></div>
+    <div class="editor-field">
+        @Html.EditorFor(m => m.Name)
+    </div>
+
+    <div class="editor-label"><b>SurName</b></div>
+    <div class="editor-field">
+        @Html.EditorFor(m => m.Surname)
+    </div>
+
+    <div class="editor-label"><b>Courses</b></div>
+    //расставляем в цикле чекбоксы отмеченные 
+    //тернанрником если модель содержит хотябы один из курсов
+    foreach (var c in ViewBag.Courses) {
+        
+        <input type="checkbox" name="selectedCourses" value="@c.Id"
+               @(Model.Courses.Contains(c)?"checked=\"cheked\"":"")/>
+        @c.Name <br />
+    }
+    <input type="submit" value="SEND" />
+}
